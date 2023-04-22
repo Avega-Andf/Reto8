@@ -284,21 +284,49 @@ if __name__ == "__main__":
 ```python
 import math
 
-def aproximacion_atan(x= float, n= float) -> float:
-    """Calcula una aproximación de la función arcotangente alrededor de 0 para cualquier valor x utilizando los primeros n términos de la serie de Maclaurin."""
+def aproximacion_atan(x: float, n: int) -> float:
+    """
+    Calcula una aproximación de la función arcotangente alrededor de 0 para cualquier valor x
+    utilizando los primeros n términos de la serie de Maclaurin.
+
+    Args:
+    - x: valor en radianes de la función arcotangente
+    - n: cantidad de términos de la serie de Maclaurin utilizados en la aproximación
+
+    Returns:
+    - arcotangente_aproximado: valor aproximado de la función arcotangente
+    """
     arcotangente_aproximado = 0
     for i in range(0,n+1):
         termino = (-1)**i * x**(2*i + 1) / (2*i + 1)
         arcotangente_aproximado += termino
     return arcotangente_aproximado
 
-def arcotangentereal(x = float)-> float:
+def arcotangentereal(x: float) -> float:
+    """
+    Calcula el valor real de la función arcotangente de un número x.
+
+    Args:
+    - x: valor en radianes de la función arcotangente
+
+    Returns:
+    - arcotangente: valor real de la función arcotangente
+    """
     arcotangente = math.atan(x)
     return arcotangente
 
 
-def calcularn(x):
+def calcularn(x: float) -> int:
+    """
+    Calcula la cantidad de términos necesarios de la serie de Maclaurin para aproximar
+    la función arcotangente de un número x con un error menor al 0.001%.
 
+    Args:
+    - x: valor en radianes de la función arcotangente
+
+    Returns:
+    - n: cantidad de términos de la serie de Maclaurin necesarios para un error menor al 0.001%
+    """
     n = 0
     arct_real = arcotangentereal(x)
     aprox = aproximacion_atan(x, n)
@@ -308,21 +336,32 @@ def calcularn(x):
         aprox = aproximacion_atan(x, n)
         error = abs(aprox - arct_real)
     return n
+
+
 if __name__ == "__main__":
+    # Se le pide al usuario que ingrese un valor en el rango [-1,1] para la función arcotangente
     x = 2
     while x > 1 or x < -1:
         x = float(input("Ingrese un valor en radianes dentro del rango [-1,1]: "))
         if x > 1 or x < -1:
             print("El numero x ingresado no pertenece al rango [-1,1]")
+
+    # Se le pide al usuario que ingrese la cantidad de términos de la serie de Maclaurin a utilizar
     n = int(input("Ingrese la cantidad de términos de la serie de Maclaurin: "))
+
+    # Se calcula la aproximación de la función arcotangente, su valor real y el error de la aproximación
     atan_real = arcotangentereal(x)
     aprox = aproximacion_atan(x, n)
     error = abs(aprox - atan_real)
+
+    # Se calcula la cantidad de términos necesarios para un error menor al 0.001%
     caln = calcularn(x)
+    
     print("Aproximación:" + str(aprox))
     print("Valor real:" + str(round(atan_real, 3)))
     print("Error:" + str(error))
     print("La cantidad de 'n' necesarios para un error menor al 0.001% son:", caln)
+
 ```
 
 
